@@ -5,6 +5,7 @@ Library  requests
 Library  Collections
 Library  DatabaseLibrary
 Library  OperatingSystem
+Resource  ./variables.robot
 Suite Setup       Connect To Database Using Custom Params  sqlite3  database='../../../db.sqlite3'
 Suite Teardown    Disconnect From Database
 
@@ -15,17 +16,20 @@ ${DBPass}         ""
 ${DBPort}         8000
 
 *** Test Cases ***
-simpleRequest
-    ${result} =  Get  http://echo.jsontest.com/framework/robot-framework/api/rest
-    Should Be Equal  ${result.status_code}  ${200}
-    ${json} =  Set Variable  ${result.json()}
-    ${framework} =  Get From Dictionary  ${json}  framework
-    Should Be Equal  ${framework}  robot-framework
-    ${api} =  Get From Dictionary  ${json}  api
-    Should Be Equal  ${api}  rest
+Get list of users
+    ${actual} =  Get  http://127.0.0.1:8000/users/
+    Should Be Equal  ${actual.status_code}    ${200}
+    ${json} =  Set Variable  ${actual.json()}
+    ${expected} =    Query  SELECT * FROM auth_user;
+    should be equal  ${actual}  ${expected}
+    #${json} =  Set Variable  ${result.json()}
+    #${framework} =  Get From Dictionary  ${json}  framework
+    #Should Be Equal  ${framework}  robot-framework
+    #${api} =  Get From Dictionary  ${json}  api
+    #Should Be Equal  ${api}  rest
 
-Retrieve records from person table
+Get list of users from DB
     [Tags]    db
-    ${output} =    Execute SQL String    SELECT * FROM auth_user;
+    ${output} =    Query    SELECT * FROM auth_user;
     Log    ${output}
     Should Be Equal As Strings    ${output}    None

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for event in events %}
+        <div id="box">
+            <h3><a href="">{{ event.title }}</a></h3>
+            <p>Дата: {{ event.event_date }}</p>
+            <p>Уровень опасности: {{ event.hazard_lvl }}</p>
+            <p>{{ event.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
