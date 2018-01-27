@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20180113 13:30:34.792" generator="Robot 3.0.2 (Python 3.5.2 on linux)">
-<suite name="01 Users" id="s1" source="/media/catherina/835f0cdc-12d2-40b4-b662-7f553c22d2c9/catherine/api+robot/webapi/webapi_tests/tests/01_users.robot">
-<kw name="Connect To Database Using Custom Params" type="setup" library="DatabaseLibrary">
+<robot generator="Robot 3.0.2 (Python 3.5.2 on linux)" generated="20180127 14:22:32.912">
+<suite id="s1" name="01 Users" source="/home/catherine/api+robot/webapi/webapi_tests/tests/01_users.robot">
+<kw type="setup" name="Connect To Database Using Custom Params" library="DatabaseLibrary">
 <doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to</doc>
 <arguments>
 <arg>sqlite3</arg>
 <arg>database='../../../db.sqlite3'</arg>
 </arguments>
-<msg timestamp="20180113 13:30:34.950" level="INFO">Executing : Connect To Database Using Custom Params : sqlite3.connect(db_api_2.connect(database='../../../db.sqlite3')) </msg>
-<status status="PASS" endtime="20180113 13:30:34.950" starttime="20180113 13:30:34.948"></status>
+<msg level="INFO" timestamp="20180127 14:22:33.288">Executing : Connect To Database Using Custom Params : sqlite3.connect(db_api_2.connect(database='../../../db.sqlite3')) </msg>
+<status status="PASS" endtime="20180127 14:22:33.288" starttime="20180127 14:22:33.285"></status>
 </kw>
-<test name="Get list of users" id="s1-t1">
+<test id="s1-t1" name="Get list of users">
 <kw name="Get" library="requests">
 <doc>Sends a GET request.</doc>
 <arguments>
@@ -19,56 +19,13 @@
 <assign>
 <var>${actual}</var>
 </assign>
-<msg timestamp="20180113 13:30:34.964" level="INFO">${actual} = &lt;Response [200]&gt;</msg>
-<status status="PASS" endtime="20180113 13:30:34.964" starttime="20180113 13:30:34.951"></status>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<doc>Fails if the given objects are unequal.</doc>
-<arguments>
-<arg>${actual.status_code}</arg>
-<arg>${200}</arg>
-</arguments>
-<status status="PASS" endtime="20180113 13:30:34.965" starttime="20180113 13:30:34.964"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${actual.json()}</arg>
-</arguments>
-<assign>
-<var>${json}</var>
-</assign>
-<msg timestamp="20180113 13:30:34.966" level="INFO">${json} = [{'username': 'User1', 'groups': [], 'url': 'http://127.0.0.1:8000/users/2/', 'email': ''}, {'username': 'admin', 'groups': [], 'url': 'http://127.0.0.1:8000/users/1/', 'email': 'admin@gmail.com'}]</msg>
-<status status="PASS" endtime="20180113 13:30:34.966" starttime="20180113 13:30:34.965"></status>
-</kw>
-<kw name="Query" library="DatabaseLibrary">
-<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
-<arguments>
-<arg>SELECT * FROM auth_user;</arg>
-</arguments>
-<assign>
-<var>${expected}</var>
-</assign>
-<msg timestamp="20180113 13:30:34.967" level="INFO">Executing : Query  |  SELECT * FROM auth_user; </msg>
-<msg timestamp="20180113 13:30:34.967" level="INFO">${expected} = [(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pb...</msg>
-<status status="PASS" endtime="20180113 13:30:34.968" starttime="20180113 13:30:34.966"></status>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<doc>Fails if the given objects are unequal.</doc>
-<arguments>
-<arg>${actual}</arg>
-<arg>${expected}</arg>
-</arguments>
-<msg timestamp="20180113 13:30:34.968" level="INFO">Argument types are:
-&lt;class 'requests.models.Response'&gt;
-&lt;class 'list'&gt;</msg>
-<msg timestamp="20180113 13:30:34.968" level="FAIL">&lt;Response [200]&gt; != [(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')]</msg>
-<status status="FAIL" endtime="20180113 13:30:34.969" starttime="20180113 13:30:34.968"></status>
+<msg level="FAIL" timestamp="20180127 14:22:33.294">ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /users/ (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x7f409132dc50&gt;: Failed to establish a new connection: [Errno 111] Connection refused',))</msg>
+<status status="FAIL" endtime="20180127 14:22:33.294" starttime="20180127 14:22:33.290"></status>
 </kw>
 <timeout value="1 minute"></timeout>
-<status critical="yes" status="FAIL" endtime="20180113 13:30:34.969" starttime="20180113 13:30:34.951">&lt;Response [200]&gt; != [(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')]</status>
+<status critical="yes" status="FAIL" endtime="20180127 14:22:33.295" starttime="20180127 14:22:33.289">ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /users/ (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x7f409132dc50&gt;: Failed to establish a new connection: [Errno 111] Connection refused',))</status>
 </test>
-<test name="Get list of users from DB" id="s1-t2">
+<test id="s1-t2" name="Get list of users from DB">
 <kw name="Query" library="DatabaseLibrary">
 <doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
 <arguments>
@@ -77,17 +34,17 @@
 <assign>
 <var>${output}</var>
 </assign>
-<msg timestamp="20180113 13:30:34.970" level="INFO">Executing : Query  |  SELECT * FROM auth_user; </msg>
-<msg timestamp="20180113 13:30:34.970" level="INFO">${output} = [(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pb...</msg>
-<status status="PASS" endtime="20180113 13:30:34.971" starttime="20180113 13:30:34.970"></status>
+<msg level="INFO" timestamp="20180127 14:22:33.296">Executing : Query  |  SELECT * FROM auth_user; </msg>
+<msg level="INFO" timestamp="20180127 14:22:33.297">${output} = [(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pb...</msg>
+<status status="PASS" endtime="20180127 14:22:33.297" starttime="20180127 14:22:33.296"></status>
 </kw>
 <kw name="Log" library="BuiltIn">
 <doc>Logs the given message with the given level.</doc>
 <arguments>
 <arg>${output}</arg>
 </arguments>
-<msg timestamp="20180113 13:30:34.971" level="INFO">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')]</msg>
-<status status="PASS" endtime="20180113 13:30:34.971" starttime="20180113 13:30:34.971"></status>
+<msg level="INFO" timestamp="20180127 14:22:33.298">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')]</msg>
+<status status="PASS" endtime="20180127 14:22:33.298" starttime="20180127 14:22:33.297"></status>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <doc>Fails if objects are unequal after converting them to strings.</doc>
@@ -95,36 +52,36 @@
 <arg>${output}</arg>
 <arg>None</arg>
 </arguments>
-<msg timestamp="20180113 13:30:34.972" level="INFO">Argument types are:
+<msg level="INFO" timestamp="20180127 14:22:33.299">Argument types are:
 &lt;class 'list'&gt;
 &lt;type 'unicode'&gt;</msg>
-<msg timestamp="20180113 13:30:34.972" level="FAIL">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')] != None</msg>
-<status status="FAIL" endtime="20180113 13:30:34.972" starttime="20180113 13:30:34.971"></status>
+<msg level="FAIL" timestamp="20180127 14:22:33.299">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')] != None</msg>
+<status status="FAIL" endtime="20180127 14:22:33.299" starttime="20180127 14:22:33.298"></status>
 </kw>
 <tags>
 <tag>db</tag>
 </tags>
 <timeout value="1 minute"></timeout>
-<status critical="yes" status="FAIL" endtime="20180113 13:30:34.972" starttime="20180113 13:30:34.969">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')] != None</status>
+<status critical="yes" status="FAIL" endtime="20180127 14:22:33.300" starttime="20180127 14:22:33.295">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')] != None</status>
 </test>
-<kw name="Disconnect From Database" type="teardown" library="DatabaseLibrary">
+<kw type="teardown" name="Disconnect From Database" library="DatabaseLibrary">
 <doc>Disconnects from the database.</doc>
-<msg timestamp="20180113 13:30:34.973" level="INFO">Executing : Disconnect From Database</msg>
-<status status="PASS" endtime="20180113 13:30:34.974" starttime="20180113 13:30:34.973"></status>
+<msg level="INFO" timestamp="20180127 14:22:33.301">Executing : Disconnect From Database</msg>
+<status status="PASS" endtime="20180127 14:22:33.301" starttime="20180127 14:22:33.301"></status>
 </kw>
 <doc>Примеры GET-запросов.</doc>
-<status status="FAIL" endtime="20180113 13:30:34.974" starttime="20180113 13:30:34.793"></status>
+<status status="FAIL" endtime="20180127 14:22:33.301" starttime="20180127 14:22:32.913"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="2" pass="0">Critical Tests</stat>
-<stat fail="2" pass="0">All Tests</stat>
+<stat pass="0" fail="2">Critical Tests</stat>
+<stat pass="0" fail="2">All Tests</stat>
 </total>
 <tag>
-<stat fail="1" pass="0">db</stat>
+<stat pass="0" fail="1">db</stat>
 </tag>
 <suite>
-<stat fail="2" id="s1" pass="0" name="01 Users">01 Users</stat>
+<stat pass="0" id="s1" name="01 Users" fail="2">01 Users</stat>
 </suite>
 </statistics>
 <errors>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="event">
+        <h1>{{ event.title }}</h1>
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'event_edit' pk=event.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default" href="{% url 'event_remove' pk=event.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+        {% endif %}
+
+        <div class="event_box">
+            <p>{{ event.text|linebreaksbr }}</p>
+            <p>Уровень опасности: {{ event.hazard_lvl }}</p>
+            {% if event.event_date %}
+                <div class="date">
+                    Дата события: {{ event.event_date }}
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+{% endblock %}

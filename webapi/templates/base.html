@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Журнал событий</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="{% static 'js.js' %}"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -11,12 +11,19 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 </head>
 <body>
-
-<div id="arlina">
+<div class="background-image"></div>
+<div id="conteiner">
   <div id="header">
-    <h1>Журнал событий</h1></br>
-    <p>Cara Memasang Widget Breaking News di Blog</div>
-  <div id="menu"><a  href="{% url 'event_new' %}" class="top-menu"><span id="add_new_btn" class="glyphicon glyphicon-plus"></span></a></div>
+    <a href="{% url 'event_list' %}"><h1>Журнал событий</h1></a></br>
+    <p>Пермский военный институт внутренних войск Министерства внутренних дел Российской Федерации</div>
+  <div id="menu">
+        {% if user.is_authenticated %}
+            <a href="{% url 'event_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+        {% else %}
+            <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+        {% endif %}
+  </div>
 
   <div id="content">
 
@@ -30,4 +37,5 @@
 
 </body>
 </html>
+
 

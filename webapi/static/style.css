@@ -12,10 +12,10 @@ body {
     color: white;
 }
 
-#arlina {
+#conteiner {
   margin: 5% auto;
   width: 100%;
-  max-width: 920px;
+  max-width: 1220px;
   box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.03);
 }
 
@@ -49,7 +49,7 @@ body {
   position: relative;
   height: 60px;
   margin: 0;
-  background: #3cc091;
+  background: cadetblue;
 }
 
 #menu:before {
@@ -84,7 +84,7 @@ body {
   width: 100%;
   height: 1260px;
   margin: 0;
-  background: #fff;
+  background:rgba(250, 250, 250, 0.9);
   padding: 20px 0;
 }
 
@@ -92,7 +92,6 @@ body {
   position: relative;
   float: left;
   width: 70%;
-  background: #fff;
 }
 
 #box {
@@ -100,7 +99,6 @@ body {
   width: 93.5%;
   height: 150px;
   display: block;
-  background: #f6f6f6;
   margin: 0 20px 20px 20px;
 }
 
@@ -290,3 +288,44 @@ body {
   line-height: 20px!important;
   color: #999
 }
+
+body{
+  background: url("./images/back.jpg");
+  background-attachment: fixed;
+  -moz-background-size: 100%; /* Firefox 3.6+ */
+  -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+  -o-background-size: 100%; /* Opera 9.6+ */
+  background-size: 100%; /* Современные браузеры */
+}
+
+#main h1{
+  padding: 1px 30px 30px 30px;
+  display: inline;
+}
+
+#main form{
+  padding: 1px 30px 30px 30px;
+}
+
+#main form label{
+  display: block;
+}
+
+#main form input, textarea{
+  width: 450px;
+}
+
+.event_box{
+  padding: 10px 30px;
+  font-size: initial;
+}
+
+.event a{
+  margin-bottom: 15px;
+}
+
+#header a:hover{
+  text-decoration: none;
+}
+
+
