@@ -1,87 +1,1864 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.0.2 (Python 3.5.2 on linux)" generated="20180127 14:22:32.912">
-<suite id="s1" name="01 Users" source="/home/catherine/api+robot/webapi/webapi_tests/tests/01_users.robot">
-<kw type="setup" name="Connect To Database Using Custom Params" library="DatabaseLibrary">
+<robot generated="20180127 22:33:50.564" generator="Robot 3.0.2 (Python 3.5.2 on linux)">
+<suite id="s1" name="Tests" source="/home/catherine/api+robot/webapi/webapi_tests/tests">
+<suite id="s1-s1" name="01 Users" source="/home/catherine/api+robot/webapi/webapi_tests/tests/01_users.robot">
+<kw name="Connect To Database Using Custom Params" type="setup" library="DatabaseLibrary">
 <doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to</doc>
 <arguments>
 <arg>sqlite3</arg>
 <arg>database='../../../db.sqlite3'</arg>
 </arguments>
-<msg level="INFO" timestamp="20180127 14:22:33.288">Executing : Connect To Database Using Custom Params : sqlite3.connect(db_api_2.connect(database='../../../db.sqlite3')) </msg>
-<status status="PASS" endtime="20180127 14:22:33.288" starttime="20180127 14:22:33.285"></status>
+<msg level="INFO" timestamp="20180127 22:33:50.726">Executing : Connect To Database Using Custom Params : sqlite3.connect(db_api_2.connect(database='../../../db.sqlite3')) </msg>
+<status status="PASS" starttime="20180127 22:33:50.724" endtime="20180127 22:33:50.726"></status>
 </kw>
-<test id="s1-t1" name="Get list of users">
+<test id="s1-s1-t1" name="Test geting list of users">
 <kw name="Get" library="requests">
 <doc>Sends a GET request.</doc>
 <arguments>
-<arg>http://127.0.0.1:8000/users/</arg>
+<arg>http://127.0.0.1:8000/api/users/</arg>
 </arguments>
 <assign>
 <var>${actual}</var>
 </assign>
-<msg level="FAIL" timestamp="20180127 14:22:33.294">ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /users/ (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x7f409132dc50&gt;: Failed to establish a new connection: [Errno 111] Connection refused',))</msg>
-<status status="FAIL" endtime="20180127 14:22:33.294" starttime="20180127 14:22:33.290"></status>
+<msg level="INFO" timestamp="20180127 22:33:50.763">${actual} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:50.728" endtime="20180127 22:33:50.763"></status>
 </kw>
-<timeout value="1 minute"></timeout>
-<status critical="yes" status="FAIL" endtime="20180127 14:22:33.295" starttime="20180127 14:22:33.289">ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /users/ (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x7f409132dc50&gt;: Failed to establish a new connection: [Errno 111] Connection refused',))</status>
-</test>
-<test id="s1-t2" name="Get list of users from DB">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${actual.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.763" endtime="20180127 22:33:50.764"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${actual.json()}</arg>
+</arguments>
+<assign>
+<var>@{json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.765">@{json} = [ {'username': 'AutotestUseri', 'url': 'http://127.0.0.1:8000/api/users/39/', 'groups': [], 'email': 'AutotestUser@mail.ru'} | {'username': 'AutotestUserz', 'url': 'http://127.0.0.1:8000/api/users/38/...</msg>
+<status status="PASS" starttime="20180127 22:33:50.764" endtime="20180127 22:33:50.765"></status>
+</kw>
+<kw name="Create actual result list">
+<arguments>
+<arg>@{json}</arg>
+</arguments>
+<assign>
+<var>${actualList}</var>
+</assign>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>${result}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.767">${result} = []</msg>
+<status status="PASS" starttime="20180127 22:33:50.766" endtime="20180127 22:33:50.767"></status>
+</kw>
+<kw name="${ELEMENT} IN [ @{json} ]" type="for">
+<kw name="${ELEMENT} = {'username': 'AutotestUseri', 'url': 'http://127.0.0.1:8000/api/users/39/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.768">{'username': 'AutotestUseri', 'url': 'http://127.0.0.1:8000/api/users/39/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.767" endtime="20180127 22:33:50.768"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.768">${username} = AutotestUseri</msg>
+<status status="PASS" starttime="20180127 22:33:50.768" endtime="20180127 22:33:50.768"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.768" endtime="20180127 22:33:50.769"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.767" endtime="20180127 22:33:50.769"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUserz', 'url': 'http://127.0.0.1:8000/api/users/38/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.769">{'username': 'AutotestUserz', 'url': 'http://127.0.0.1:8000/api/users/38/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.769" endtime="20180127 22:33:50.770"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.770">${username} = AutotestUserz</msg>
+<status status="PASS" starttime="20180127 22:33:50.770" endtime="20180127 22:33:50.770"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.770" endtime="20180127 22:33:50.771"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.769" endtime="20180127 22:33:50.771"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUserx', 'url': 'http://127.0.0.1:8000/api/users/37/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.772">{'username': 'AutotestUserx', 'url': 'http://127.0.0.1:8000/api/users/37/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.771" endtime="20180127 22:33:50.772"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.773">${username} = AutotestUserx</msg>
+<status status="PASS" starttime="20180127 22:33:50.772" endtime="20180127 22:33:50.773"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.773" endtime="20180127 22:33:50.774"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.771" endtime="20180127 22:33:50.774"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUsery', 'url': 'http://127.0.0.1:8000/api/users/36/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.774">{'username': 'AutotestUsery', 'url': 'http://127.0.0.1:8000/api/users/36/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.774" endtime="20180127 22:33:50.774"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.775">${username} = AutotestUsery</msg>
+<status status="PASS" starttime="20180127 22:33:50.774" endtime="20180127 22:33:50.775"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.776" endtime="20180127 22:33:50.776"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.774" endtime="20180127 22:33:50.776"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUserrr', 'url': 'http://127.0.0.1:8000/api/users/35/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.777">{'username': 'AutotestUserrr', 'url': 'http://127.0.0.1:8000/api/users/35/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.777" endtime="20180127 22:33:50.777"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.778">${username} = AutotestUserrr</msg>
+<status status="PASS" starttime="20180127 22:33:50.777" endtime="20180127 22:33:50.778"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.778" endtime="20180127 22:33:50.779"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.776" endtime="20180127 22:33:50.779"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUserr', 'url': 'http://127.0.0.1:8000/api/users/34/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.779">{'username': 'AutotestUserr', 'url': 'http://127.0.0.1:8000/api/users/34/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.779" endtime="20180127 22:33:50.779"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.780">${username} = AutotestUserr</msg>
+<status status="PASS" starttime="20180127 22:33:50.779" endtime="20180127 22:33:50.780"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.780" endtime="20180127 22:33:50.781"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.779" endtime="20180127 22:33:50.781"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUsere', 'url': 'http://127.0.0.1:8000/api/users/33/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.782">{'username': 'AutotestUsere', 'url': 'http://127.0.0.1:8000/api/users/33/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.781" endtime="20180127 22:33:50.782"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.783">${username} = AutotestUsere</msg>
+<status status="PASS" starttime="20180127 22:33:50.783" endtime="20180127 22:33:50.783"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.784" endtime="20180127 22:33:50.784"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.781" endtime="20180127 22:33:50.785"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUserw', 'url': 'http://127.0.0.1:8000/api/users/32/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.786">{'username': 'AutotestUserw', 'url': 'http://127.0.0.1:8000/api/users/32/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.785" endtime="20180127 22:33:50.786"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.787">${username} = AutotestUserw</msg>
+<status status="PASS" starttime="20180127 22:33:50.786" endtime="20180127 22:33:50.787"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.787" endtime="20180127 22:33:50.788"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.785" endtime="20180127 22:33:50.788"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUserq', 'url': 'http://127.0.0.1:8000/api/users/31/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.790">{'username': 'AutotestUserq', 'url': 'http://127.0.0.1:8000/api/users/31/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.789" endtime="20180127 22:33:50.790"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.792">${username} = AutotestUserq</msg>
+<status status="PASS" starttime="20180127 22:33:50.791" endtime="20180127 22:33:50.792"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.792" endtime="20180127 22:33:50.793"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.788" endtime="20180127 22:33:50.793"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'asdasd', 'url': 'http://127.0.0.1:8000/api/users/30/', 'groups': [], 'email': 'asd@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.794">{'username': 'asdasd', 'url': 'http://127.0.0.1:8000/api/users/30/', 'groups': [], 'email': 'asd@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.793" endtime="20180127 22:33:50.794"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.796">${username} = asdasd</msg>
+<status status="PASS" starttime="20180127 22:33:50.795" endtime="20180127 22:33:50.796"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.796" endtime="20180127 22:33:50.796"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.793" endtime="20180127 22:33:50.797"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUser', 'url': 'http://127.0.0.1:8000/api/users/29/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.797">{'username': 'AutotestUser', 'url': 'http://127.0.0.1:8000/api/users/29/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.797" endtime="20180127 22:33:50.798"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.798">${username} = AutotestUser</msg>
+<status status="PASS" starttime="20180127 22:33:50.798" endtime="20180127 22:33:50.799"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.799" endtime="20180127 22:33:50.799"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.797" endtime="20180127 22:33:50.799"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUser9', 'url': 'http://127.0.0.1:8000/api/users/23/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.800">{'username': 'AutotestUser9', 'url': 'http://127.0.0.1:8000/api/users/23/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.800" endtime="20180127 22:33:50.800"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.801">${username} = AutotestUser9</msg>
+<status status="PASS" starttime="20180127 22:33:50.800" endtime="20180127 22:33:50.801"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.801" endtime="20180127 22:33:50.801"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.799" endtime="20180127 22:33:50.801"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUser8', 'url': 'http://127.0.0.1:8000/api/users/22/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.802">{'username': 'AutotestUser8', 'url': 'http://127.0.0.1:8000/api/users/22/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.802" endtime="20180127 22:33:50.802"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.803">${username} = AutotestUser8</msg>
+<status status="PASS" starttime="20180127 22:33:50.802" endtime="20180127 22:33:50.803"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.803" endtime="20180127 22:33:50.803"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.801" endtime="20180127 22:33:50.803"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUser7', 'url': 'http://127.0.0.1:8000/api/users/21/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.804">{'username': 'AutotestUser7', 'url': 'http://127.0.0.1:8000/api/users/21/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.804" endtime="20180127 22:33:50.804"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.805">${username} = AutotestUser7</msg>
+<status status="PASS" starttime="20180127 22:33:50.804" endtime="20180127 22:33:50.805"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.805" endtime="20180127 22:33:50.806"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.803" endtime="20180127 22:33:50.806"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'AutotestUser1', 'url': 'http://127.0.0.1:8000/api/users/8/', 'groups': [], 'email': 'AutotestUser@mail.ru'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.807">{'username': 'AutotestUser1', 'url': 'http://127.0.0.1:8000/api/users/8/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.806" endtime="20180127 22:33:50.807"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.808">${username} = AutotestUser1</msg>
+<status status="PASS" starttime="20180127 22:33:50.807" endtime="20180127 22:33:50.808"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.808" endtime="20180127 22:33:50.808"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.806" endtime="20180127 22:33:50.808"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'User1', 'url': 'http://127.0.0.1:8000/api/users/2/', 'groups': [], 'email': ''}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.809">{'username': 'User1', 'url': 'http://127.0.0.1:8000/api/users/2/', 'groups': [], 'email': ''}</msg>
+<status status="PASS" starttime="20180127 22:33:50.809" endtime="20180127 22:33:50.809"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.810">${username} = User1</msg>
+<status status="PASS" starttime="20180127 22:33:50.809" endtime="20180127 22:33:50.810"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.810" endtime="20180127 22:33:50.810"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.808" endtime="20180127 22:33:50.811"></status>
+</kw>
+<kw name="${ELEMENT} = {'username': 'admin', 'url': 'http://127.0.0.1:8000/api/users/1/', 'groups': [], 'email': 'admin@gmail.com'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.811">{'username': 'admin', 'url': 'http://127.0.0.1:8000/api/users/1/', 'groups': [], 'email': 'admin@gmail.com'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.811" endtime="20180127 22:33:50.812"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.812">${username} = admin</msg>
+<status status="PASS" starttime="20180127 22:33:50.812" endtime="20180127 22:33:50.812"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${username}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.812" endtime="20180127 22:33:50.813"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.811" endtime="20180127 22:33:50.813"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.767" endtime="20180127 22:33:50.813"></status>
+</kw>
+<kw name="Sort List" library="Collections">
+<doc>Sorts the given list in place.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.813" endtime="20180127 22:33:50.813"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.814">['AutotestUser', 'AutotestUser1', 'AutotestUser7', 'AutotestUser8', 'AutotestUser9', 'AutotestUsere', 'AutotestUseri', 'AutotestUserq', 'AutotestUserr', 'AutotestUserrr', 'AutotestUserw', 'AutotestUserx', 'AutotestUsery', 'AutotestUserz', 'User1', 'admin', 'asdasd']</msg>
+<status status="PASS" starttime="20180127 22:33:50.813" endtime="20180127 22:33:50.814"></status>
+</kw>
+<msg level="INFO" timestamp="20180127 22:33:50.814">${actualList} = ['AutotestUser', 'AutotestUser1', 'AutotestUser7', 'AutotestUser8', 'AutotestUser9', 'AutotestUsere', 'AutotestUseri', 'AutotestUserq', 'AutotestUserr', 'AutotestUserrr', 'AutotestUserw', 'AutotestUse...</msg>
+<status status="PASS" starttime="20180127 22:33:50.766" endtime="20180127 22:33:50.814"></status>
+</kw>
 <kw name="Query" library="DatabaseLibrary">
 <doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
 <arguments>
 <arg>SELECT * FROM auth_user;</arg>
 </arguments>
 <assign>
-<var>${output}</var>
+<var>@{db}</var>
 </assign>
-<msg level="INFO" timestamp="20180127 14:22:33.296">Executing : Query  |  SELECT * FROM auth_user; </msg>
-<msg level="INFO" timestamp="20180127 14:22:33.297">${output} = [(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pb...</msg>
-<status status="PASS" endtime="20180127 14:22:33.297" starttime="20180127 14:22:33.296"></status>
+<msg level="INFO" timestamp="20180127 22:33:50.815">Executing : Query  |  SELECT * FROM auth_user; </msg>
+<msg level="INFO" timestamp="20180127 22:33:50.815">@{db} = [ (1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-27 17:05:29.929054', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', '') | (2, '...</msg>
+<status status="PASS" starttime="20180127 22:33:50.814" endtime="20180127 22:33:50.816"></status>
+</kw>
+<kw name="Create expected result lis">
+<arguments>
+<arg>@{db}</arg>
+</arguments>
+<assign>
+<var>${expectedlList}</var>
+</assign>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>${result}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.816">${result} = []</msg>
+<status status="PASS" starttime="20180127 22:33:50.816" endtime="20180127 22:33:50.816"></status>
+</kw>
+<kw name="${ELEMENT} IN [ @{db} ]" type="for">
+<kw name="${ELEMENT} = (1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-27 17:05:29.929054', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.817">(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-27 17:05:29.929054', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.817" endtime="20180127 22:33:50.817"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.818" endtime="20180127 22:33:50.818"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.817" endtime="20180127 22:33:50.818"></status>
+</kw>
+<kw name="${ELEMENT} = (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.819">(2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.818" endtime="20180127 22:33:50.819"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.819" endtime="20180127 22:33:50.819"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.818" endtime="20180127 22:33:50.819"></status>
+</kw>
+<kw name="${ELEMENT} = (8, '', None, 0, 'AutotestUser1', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 17:58:01.002557', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.820">(8, '', None, 0, 'AutotestUser1', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 17:58:01.002557', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.819" endtime="20180127 22:33:50.820"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.820" endtime="20180127 22:33:50.820"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.819" endtime="20180127 22:33:50.820"></status>
+</kw>
+<kw name="${ELEMENT} = (21, '', None, 0, 'AutotestUser7', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:34:32.262947', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.821">(21, '', None, 0, 'AutotestUser7', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:34:32.262947', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.821" endtime="20180127 22:33:50.821"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.821" endtime="20180127 22:33:50.822"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.821" endtime="20180127 22:33:50.822"></status>
+</kw>
+<kw name="${ELEMENT} = (22, '', None, 0, 'AutotestUser8', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:35:44.297548', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.823">(22, '', None, 0, 'AutotestUser8', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:35:44.297548', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.822" endtime="20180127 22:33:50.823"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.823" endtime="20180127 22:33:50.824"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.822" endtime="20180127 22:33:50.824"></status>
+</kw>
+<kw name="${ELEMENT} = (23, '', None, 0, 'AutotestUser9', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:36:05.400820', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.824">(23, '', None, 0, 'AutotestUser9', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:36:05.400820', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.824" endtime="20180127 22:33:50.825"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.825" endtime="20180127 22:33:50.825"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.824" endtime="20180127 22:33:50.826"></status>
+</kw>
+<kw name="${ELEMENT} = (29, '', None, 0, 'AutotestUser', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:43:17.467643', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.826">(29, '', None, 0, 'AutotestUser', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:43:17.467643', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.826" endtime="20180127 22:33:50.826"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.827" endtime="20180127 22:33:50.827"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.826" endtime="20180127 22:33:50.827"></status>
+</kw>
+<kw name="${ELEMENT} = (30, '', None, 0, 'asdasd', '', 'asd@mail.ru', 0, 1, '2018-01-27 18:44:28.231185', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.828">(30, '', None, 0, 'asdasd', '', 'asd@mail.ru', 0, 1, '2018-01-27 18:44:28.231185', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.828" endtime="20180127 22:33:50.828"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.828" endtime="20180127 22:33:50.829"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.827" endtime="20180127 22:33:50.829"></status>
+</kw>
+<kw name="${ELEMENT} = (31, '', None, 0, 'AutotestUserq', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:45:27.970617', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.829">(31, '', None, 0, 'AutotestUserq', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:45:27.970617', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.829" endtime="20180127 22:33:50.829"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.829" endtime="20180127 22:33:50.830"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.829" endtime="20180127 22:33:50.830"></status>
+</kw>
+<kw name="${ELEMENT} = (32, '', None, 0, 'AutotestUserw', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:46:52.249021', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.830">(32, '', None, 0, 'AutotestUserw', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:46:52.249021', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.830" endtime="20180127 22:33:50.831"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.831" endtime="20180127 22:33:50.831"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.830" endtime="20180127 22:33:50.831"></status>
+</kw>
+<kw name="${ELEMENT} = (33, '', None, 0, 'AutotestUsere', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:47:23.685678', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.832">(33, '', None, 0, 'AutotestUsere', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:47:23.685678', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.831" endtime="20180127 22:33:50.832"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.832" endtime="20180127 22:33:50.832"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.831" endtime="20180127 22:33:50.832"></status>
+</kw>
+<kw name="${ELEMENT} = (34, '', None, 0, 'AutotestUserr', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:48:58.569182', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.834">(34, '', None, 0, 'AutotestUserr', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:48:58.569182', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.833" endtime="20180127 22:33:50.834"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.834" endtime="20180127 22:33:50.835"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.832" endtime="20180127 22:33:50.835"></status>
+</kw>
+<kw name="${ELEMENT} = (35, '', None, 0, 'AutotestUserrr', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:49:19.997892', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.835">(35, '', None, 0, 'AutotestUserrr', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:49:19.997892', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.835" endtime="20180127 22:33:50.835"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.835" endtime="20180127 22:33:50.836"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.835" endtime="20180127 22:33:50.836"></status>
+</kw>
+<kw name="${ELEMENT} = (36, '', None, 0, 'AutotestUsery', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:51:35.443268', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.836">(36, '', None, 0, 'AutotestUsery', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:51:35.443268', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.836" endtime="20180127 22:33:50.837"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.837" endtime="20180127 22:33:50.837"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.836" endtime="20180127 22:33:50.837"></status>
+</kw>
+<kw name="${ELEMENT} = (37, '', None, 0, 'AutotestUserx', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:52:25.320959', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.838">(37, '', None, 0, 'AutotestUserx', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:52:25.320959', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.837" endtime="20180127 22:33:50.838"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.838" endtime="20180127 22:33:50.838"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.837" endtime="20180127 22:33:50.838"></status>
+</kw>
+<kw name="${ELEMENT} = (38, '', None, 0, 'AutotestUserz', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:54:35.269705', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.839">(38, '', None, 0, 'AutotestUserz', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:54:35.269705', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.839" endtime="20180127 22:33:50.839"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.839" endtime="20180127 22:33:50.840"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.838" endtime="20180127 22:33:50.840"></status>
+</kw>
+<kw name="${ELEMENT} = (39, '', None, 0, 'AutotestUseri', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:55:47.461558', '')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.841">(39, '', None, 0, 'AutotestUseri', '', 'AutotestUser@mail.ru', 0, 1, '2018-01-27 18:55:47.461558', '')</msg>
+<status status="PASS" starttime="20180127 22:33:50.841" endtime="20180127 22:33:50.841"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[4]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.841" endtime="20180127 22:33:50.842"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.840" endtime="20180127 22:33:50.842"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.817" endtime="20180127 22:33:50.842"></status>
+</kw>
+<kw name="Sort List" library="Collections">
+<doc>Sorts the given list in place.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.842" endtime="20180127 22:33:50.843"></status>
 </kw>
 <kw name="Log" library="BuiltIn">
 <doc>Logs the given message with the given level.</doc>
 <arguments>
-<arg>${output}</arg>
+<arg>${result}</arg>
 </arguments>
-<msg level="INFO" timestamp="20180127 14:22:33.298">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')]</msg>
-<status status="PASS" endtime="20180127 14:22:33.298" starttime="20180127 14:22:33.297"></status>
+<msg level="INFO" timestamp="20180127 22:33:50.843">['AutotestUser', 'AutotestUser1', 'AutotestUser7', 'AutotestUser8', 'AutotestUser9', 'AutotestUsere', 'AutotestUseri', 'AutotestUserq', 'AutotestUserr', 'AutotestUserrr', 'AutotestUserw', 'AutotestUserx', 'AutotestUsery', 'AutotestUserz', 'User1', 'admin', 'asdasd']</msg>
+<status status="PASS" starttime="20180127 22:33:50.843" endtime="20180127 22:33:50.843"></status>
 </kw>
-<kw name="Should Be Equal As Strings" library="BuiltIn">
-<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg level="INFO" timestamp="20180127 22:33:50.844">${expectedlList} = ['AutotestUser', 'AutotestUser1', 'AutotestUser7', 'AutotestUser8', 'AutotestUser9', 'AutotestUsere', 'AutotestUseri', 'AutotestUserq', 'AutotestUserr', 'AutotestUserrr', 'AutotestUserw', 'AutotestUse...</msg>
+<status status="PASS" starttime="20180127 22:33:50.816" endtime="20180127 22:33:50.844"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
 <arguments>
-<arg>${output}</arg>
-<arg>None</arg>
+<arg>${actualList}</arg>
+<arg>${expectedlList}</arg>
 </arguments>
-<msg level="INFO" timestamp="20180127 14:22:33.299">Argument types are:
-&lt;class 'list'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg level="FAIL" timestamp="20180127 14:22:33.299">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')] != None</msg>
-<status status="FAIL" endtime="20180127 14:22:33.299" starttime="20180127 14:22:33.298"></status>
+<status status="PASS" starttime="20180127 22:33:50.844" endtime="20180127 22:33:50.844"></status>
 </kw>
+<doc>Получение списка пользователей</doc>
 <tags>
-<tag>db</tag>
+<tag>user</tag>
 </tags>
 <timeout value="1 minute"></timeout>
-<status critical="yes" status="FAIL" endtime="20180127 14:22:33.300" starttime="20180127 14:22:33.295">[(1, 'pbkdf2_sha256$100000$1r1FHHh3KyYO$wjZG6R9BwADA+nWNMrFmUpk4jb94Tqg8xw3NwVl4Br4=', '2018-01-10 07:48:48.941551', 1, 'admin', '', 'admin@gmail.com', 1, 1, '2018-01-10 04:46:12.964095', ''), (2, 'pbkdf2_sha256$100000$1UiM1jYH833z$bLcomOvq0Z+uOEnkTRoVU97yyr0H2dsIoD130Dx0NGc=', None, 0, 'User1', '', '', 0, 1, '2018-01-10 05:39:11.185890', '')] != None</status>
+<status status="PASS" critical="yes" starttime="20180127 22:33:50.727" endtime="20180127 22:33:50.845"></status>
 </test>
-<kw type="teardown" name="Disconnect From Database" library="DatabaseLibrary">
-<doc>Disconnects from the database.</doc>
-<msg level="INFO" timestamp="20180127 14:22:33.301">Executing : Disconnect From Database</msg>
-<status status="PASS" endtime="20180127 14:22:33.301" starttime="20180127 14:22:33.301"></status>
+<test id="s1-s1-t2" name="Test creating new user">
+<kw name="Create user">
+<assign>
+<var>${json}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=Application/json</arg>
+<arg>Authorization=Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.846">${headers} = {'Content-Type': 'Application/json', 'Authorization': 'Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.846" endtime="20180127 22:33:50.846"></status>
 </kw>
-<doc>Примеры GET-запросов.</doc>
-<status status="FAIL" endtime="20180127 14:22:33.301" starttime="20180127 14:22:32.913"></status>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>username=${USER_NAME}</arg>
+<arg>email=AutotestUser@mail.ru</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.847">${data} = {'username': 'AutotestUserg', 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.847" endtime="20180127 22:33:50.847"></status>
+</kw>
+<kw name="Dumps" library="json">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>${req_json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.847">${req_json} = {"username": "AutotestUserg", "email": "AutotestUser@mail.ru"}</msg>
+<status status="PASS" starttime="20180127 22:33:50.847" endtime="20180127 22:33:50.848"></status>
+</kw>
+<kw name="Post" library="requests">
+<doc>Sends a POST request.</doc>
+<arguments>
+<arg>http://127.0.0.1:8000/api/users/</arg>
+<arg>data=${req_json}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.970">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:50.848" endtime="20180127 22:33:50.970"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${response.json()}</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.972">${json} = {'username': 'AutotestUserg', 'url': 'http://127.0.0.1:8000/api/users/49/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.971" endtime="20180127 22:33:50.972"></status>
+</kw>
+<msg level="INFO" timestamp="20180127 22:33:50.973">${json} = {'username': 'AutotestUserg', 'url': 'http://127.0.0.1:8000/api/users/49/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.846" endtime="20180127 22:33:50.973"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${json}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.974">${username} = AutotestUserg</msg>
+<status status="PASS" starttime="20180127 22:33:50.973" endtime="20180127 22:33:50.974"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${json}</arg>
+<arg>url</arg>
+</arguments>
+<assign>
+<var>${user_url}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.975">${user_url} = http://127.0.0.1:8000/api/users/49/</msg>
+<status status="PASS" starttime="20180127 22:33:50.974" endtime="20180127 22:33:50.975"></status>
+</kw>
+<kw name="Get user by name from db">
+<arguments>
+<arg>${username}</arg>
+</arguments>
+<assign>
+<var>${username_db}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SELECT username FROM auth_user</arg>
+<arg>Where username="${name}"</arg>
+</arguments>
+<assign>
+<var>${sql}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.977">${sql} = SELECT username FROM auth_user Where username="AutotestUserg"</msg>
+<status status="PASS" starttime="20180127 22:33:50.976" endtime="20180127 22:33:50.977"></status>
+</kw>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
+<arguments>
+<arg>${sql}</arg>
+</arguments>
+<assign>
+<var>${db}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.978">Executing : Query  |  SELECT username FROM auth_user Where username="AutotestUserg" </msg>
+<msg level="INFO" timestamp="20180127 22:33:50.979">${db} = [('AutotestUserg',)]</msg>
+<status status="PASS" starttime="20180127 22:33:50.978" endtime="20180127 22:33:50.979"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${db}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${username_db}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.980">${username_db} = ('AutotestUserg',)</msg>
+<status status="PASS" starttime="20180127 22:33:50.979" endtime="20180127 22:33:50.980"></status>
+</kw>
+<kw name="Convert To List" library="Collections">
+<doc>Converts the given ``item`` to a Python ``list`` type.</doc>
+<arguments>
+<arg>${username_db}</arg>
+</arguments>
+<assign>
+<var>${username_db}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.981">${username_db} = ['AutotestUserg']</msg>
+<status status="PASS" starttime="20180127 22:33:50.980" endtime="20180127 22:33:50.981"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${username_db}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${username_db}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.982">${username_db} = AutotestUserg</msg>
+<status status="PASS" starttime="20180127 22:33:50.981" endtime="20180127 22:33:50.982"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${db}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:50.983">[('AutotestUserg',)]</msg>
+<status status="PASS" starttime="20180127 22:33:50.982" endtime="20180127 22:33:50.983"></status>
+</kw>
+<msg level="INFO" timestamp="20180127 22:33:50.983">${username_db} = AutotestUserg</msg>
+<status status="PASS" starttime="20180127 22:33:50.975" endtime="20180127 22:33:50.983"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${username}</arg>
+<arg>${username_db}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:50.984" endtime="20180127 22:33:50.984"></status>
+</kw>
+<kw name="Delete user by url">
+<arguments>
+<arg>${user_url}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=Application/json</arg>
+<arg>Authorization=Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:50.986">${headers} = {'Content-Type': 'Application/json', 'Authorization': 'Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe'}</msg>
+<status status="PASS" starttime="20180127 22:33:50.985" endtime="20180127 22:33:50.986"></status>
+</kw>
+<kw name="Delete" library="requests">
+<doc>Sends a DELETE request.</doc>
+<arguments>
+<arg>url=${url}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.098">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:50.986" endtime="20180127 22:33:51.098"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:50.984" endtime="20180127 22:33:51.099"></status>
+</kw>
+<doc>Создание пользователя</doc>
+<tags>
+<tag>user</tag>
+</tags>
+<timeout value="1 minute"></timeout>
+<status status="PASS" critical="yes" starttime="20180127 22:33:50.845" endtime="20180127 22:33:51.099"></status>
+</test>
+<test id="s1-s1-t3" name="Test deleting user">
+<kw name="Create user">
+<assign>
+<var>${json}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=Application/json</arg>
+<arg>Authorization=Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.103">${headers} = {'Content-Type': 'Application/json', 'Authorization': 'Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.102" endtime="20180127 22:33:51.103"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>username=${USER_NAME}</arg>
+<arg>email=AutotestUser@mail.ru</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.107">${data} = {'username': 'AutotestUserg', 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.104" endtime="20180127 22:33:51.107"></status>
+</kw>
+<kw name="Dumps" library="json">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>${req_json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.108">${req_json} = {"username": "AutotestUserg", "email": "AutotestUser@mail.ru"}</msg>
+<status status="PASS" starttime="20180127 22:33:51.107" endtime="20180127 22:33:51.108"></status>
+</kw>
+<kw name="Post" library="requests">
+<doc>Sends a POST request.</doc>
+<arguments>
+<arg>http://127.0.0.1:8000/api/users/</arg>
+<arg>data=${req_json}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.321">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:51.108" endtime="20180127 22:33:51.321"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${response.json()}</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.322">${json} = {'username': 'AutotestUserg', 'url': 'http://127.0.0.1:8000/api/users/50/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.321" endtime="20180127 22:33:51.322"></status>
+</kw>
+<msg level="INFO" timestamp="20180127 22:33:51.322">${json} = {'username': 'AutotestUserg', 'url': 'http://127.0.0.1:8000/api/users/50/', 'groups': [], 'email': 'AutotestUser@mail.ru'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.102" endtime="20180127 22:33:51.323"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${json}</arg>
+<arg>url</arg>
+</arguments>
+<assign>
+<var>${user_url}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.324">${user_url} = http://127.0.0.1:8000/api/users/50/</msg>
+<status status="PASS" starttime="20180127 22:33:51.323" endtime="20180127 22:33:51.324"></status>
+</kw>
+<kw name="Delete user by url">
+<arguments>
+<arg>${user_url}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=Application/json</arg>
+<arg>Authorization=Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.327">${headers} = {'Content-Type': 'Application/json', 'Authorization': 'Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.326" endtime="20180127 22:33:51.327"></status>
+</kw>
+<kw name="Delete" library="requests">
+<doc>Sends a DELETE request.</doc>
+<arguments>
+<arg>url=${url}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.432">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:51.327" endtime="20180127 22:33:51.432"></status>
+</kw>
+<msg level="INFO" timestamp="20180127 22:33:51.433">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:51.324" endtime="20180127 22:33:51.433"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${204}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.435">${response} = None</msg>
+<status status="PASS" starttime="20180127 22:33:51.434" endtime="20180127 22:33:51.435"></status>
+</kw>
+<doc>Удаление пользователя</doc>
+<tags>
+<tag>user</tag>
+</tags>
+<timeout value="1 minute"></timeout>
+<status status="PASS" critical="yes" starttime="20180127 22:33:51.100" endtime="20180127 22:33:51.436"></status>
+</test>
+<kw name="Disconnect From Database" type="teardown" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<msg level="INFO" timestamp="20180127 22:33:51.439">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20180127 22:33:51.437" endtime="20180127 22:33:51.439"></status>
+</kw>
+<doc>Тестирование работы OAPI с объектами user</doc>
+<status status="PASS" starttime="20180127 22:33:50.597" endtime="20180127 22:33:51.439"></status>
+</suite>
+<suite id="s1-s2" name="02 Events" source="/home/catherine/api+robot/webapi/webapi_tests/tests/02_events.robot">
+<kw name="Connect To Database Using Custom Params" type="setup" library="DatabaseLibrary">
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to</doc>
+<arguments>
+<arg>sqlite3</arg>
+<arg>database='../../../db.sqlite3'</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.459">Executing : Connect To Database Using Custom Params : sqlite3.connect(db_api_2.connect(database='../../../db.sqlite3')) </msg>
+<status status="PASS" starttime="20180127 22:33:51.459" endtime="20180127 22:33:51.460"></status>
+</kw>
+<test id="s1-s2-t1" name="Test geting list of events">
+<kw name="Get" library="requests">
+<doc>Sends a GET request.</doc>
+<arguments>
+<arg>http://127.0.0.1:8000/api/events/</arg>
+</arguments>
+<assign>
+<var>${actual}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.473">${actual} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:51.461" endtime="20180127 22:33:51.473"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${actual.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.473" endtime="20180127 22:33:51.474"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${actual.json()}</arg>
+</arguments>
+<assign>
+<var>@{json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.476">@{json} = [ {'event_date': '2018-01-13T13:47:43+03:00', 'hazard_lvl': 'Критический', 'title': 'Пожар!', 'author': 'http://127.0.0.1:8000/api/users/2/', 'text': 'Внимание! Срочно провести эвакуацию!'} | {'event_...</msg>
+<status status="PASS" starttime="20180127 22:33:51.475" endtime="20180127 22:33:51.476"></status>
+</kw>
+<kw name="Create actual result list">
+<arguments>
+<arg>@{json}</arg>
+</arguments>
+<assign>
+<var>${actualList}</var>
+</assign>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>${result}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.477">${result} = []</msg>
+<status status="PASS" starttime="20180127 22:33:51.477" endtime="20180127 22:33:51.477"></status>
+</kw>
+<kw name="${ELEMENT} IN [ @{json} ]" type="for">
+<kw name="${ELEMENT} = {'event_date': '2018-01-13T13:47:43+03:00', 'hazard_lvl': 'Критический', 'title': 'Пожар!', 'author': 'http://127.0.0.1:8000/api/users/2/', 'text': 'Внимание! Срочно провести эвакуацию!'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.478">{'event_date': '2018-01-13T13:47:43+03:00', 'hazard_lvl': 'Критический', 'title': 'Пожар!', 'author': 'http://127.0.0.1:8000/api/users/2/', 'text': 'Внимание! Срочно провести эвакуацию!'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.478" endtime="20180127 22:33:51.479"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>title</arg>
+</arguments>
+<assign>
+<var>${title}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.479">${title} = Пожар!</msg>
+<status status="PASS" starttime="20180127 22:33:51.479" endtime="20180127 22:33:51.479"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${title}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.479" endtime="20180127 22:33:51.480"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.478" endtime="20180127 22:33:51.480"></status>
+</kw>
+<kw name="${ELEMENT} = {'event_date': '2018-01-12T18:00:00+03:00', 'hazard_lvl': 'Низкий', 'title': 'Визит Папы Римского', 'author': 'http://127.0.0.1:8000/api/users/2/', 'text': 'Все желающие приглашаются на встречу с Папо..." type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.480">{'event_date': '2018-01-12T18:00:00+03:00', 'hazard_lvl': 'Низкий', 'title': 'Визит Папы Римского', 'author': 'http://127.0.0.1:8000/api/users/2/', 'text': 'Все желающие приглашаются на встречу с Папой.'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.480" endtime="20180127 22:33:51.480"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>title</arg>
+</arguments>
+<assign>
+<var>${title}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.481">${title} = Визит Папы Римского</msg>
+<status status="PASS" starttime="20180127 22:33:51.481" endtime="20180127 22:33:51.481"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${title}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.481" endtime="20180127 22:33:51.481"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.480" endtime="20180127 22:33:51.481"></status>
+</kw>
+<kw name="${ELEMENT} = {'event_date': '2018-01-27T16:49:15.389882+03:00', 'hazard_lvl': 'Высокий', 'title': 'Штормовое предупреждение', 'author': 'http://127.0.0.1:8000/api/users/1/', 'text': 'Пожалуйста воздержитесь от вых..." type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.482">{'event_date': '2018-01-27T16:49:15.389882+03:00', 'hazard_lvl': 'Высокий', 'title': 'Штормовое предупреждение', 'author': 'http://127.0.0.1:8000/api/users/1/', 'text': 'Пожалуйста воздержитесь от выхода на улицу.'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.482" endtime="20180127 22:33:51.482"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>title</arg>
+</arguments>
+<assign>
+<var>${title}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.483">${title} = Штормовое предупреждение</msg>
+<status status="PASS" starttime="20180127 22:33:51.482" endtime="20180127 22:33:51.483"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${title}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.483" endtime="20180127 22:33:51.483"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.482" endtime="20180127 22:33:51.483"></status>
+</kw>
+<kw name="${ELEMENT} = {'event_date': '2018-01-13T10:47:43+03:00', 'hazard_lvl': 'Критический', 'title': 'asdf', 'author': 'http://127.0.0.1:8000/api/users/1/', 'text': 'asdf'}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.484">{'event_date': '2018-01-13T10:47:43+03:00', 'hazard_lvl': 'Критический', 'title': 'asdf', 'author': 'http://127.0.0.1:8000/api/users/1/', 'text': 'asdf'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.483" endtime="20180127 22:33:51.484"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+<arg>title</arg>
+</arguments>
+<assign>
+<var>${title}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.484">${title} = asdf</msg>
+<status status="PASS" starttime="20180127 22:33:51.484" endtime="20180127 22:33:51.484"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${title}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.484" endtime="20180127 22:33:51.485"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.483" endtime="20180127 22:33:51.485"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.477" endtime="20180127 22:33:51.485"></status>
+</kw>
+<kw name="Sort List" library="Collections">
+<doc>Sorts the given list in place.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.485" endtime="20180127 22:33:51.485"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.486">['asdf', 'Визит Папы Римского', 'Пожар!', 'Штормовое предупреждение']</msg>
+<status status="PASS" starttime="20180127 22:33:51.485" endtime="20180127 22:33:51.486"></status>
+</kw>
+<msg level="INFO" timestamp="20180127 22:33:51.486">${actualList} = ['asdf', 'Визит Папы Римского', 'Пожар!', 'Штормовое предупреждение']</msg>
+<status status="PASS" starttime="20180127 22:33:51.476" endtime="20180127 22:33:51.486"></status>
+</kw>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional</doc>
+<arguments>
+<arg>SELECT * FROM webapi_event;</arg>
+</arguments>
+<assign>
+<var>@{db}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.487">Executing : Query  |  SELECT * FROM webapi_event; </msg>
+<msg level="INFO" timestamp="20180127 22:33:51.488">@{db} = [ (1, 'Внимание! Срочно провести эвакуацию!', 'Критический', '2018-01-13 10:47:43', 2, 'Пожар!') | (2, 'Все желающие приглашаются на встречу с Папой.', 'Низкий', '2018-01-12 15:00:00', 2, 'Визит Папы ...</msg>
+<status status="PASS" starttime="20180127 22:33:51.486" endtime="20180127 22:33:51.488"></status>
+</kw>
+<kw name="Create expected result lis">
+<arguments>
+<arg>@{db}</arg>
+</arguments>
+<assign>
+<var>${expectedlList}</var>
+</assign>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>${result}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.489">${result} = []</msg>
+<status status="PASS" starttime="20180127 22:33:51.489" endtime="20180127 22:33:51.489"></status>
+</kw>
+<kw name="${ELEMENT} IN [ @{db} ]" type="for">
+<kw name="${ELEMENT} = (1, 'Внимание! Срочно провести эвакуацию!', 'Критический', '2018-01-13 10:47:43', 2, 'Пожар!')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.490">(1, 'Внимание! Срочно провести эвакуацию!', 'Критический', '2018-01-13 10:47:43', 2, 'Пожар!')</msg>
+<status status="PASS" starttime="20180127 22:33:51.490" endtime="20180127 22:33:51.491"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[5]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.491" endtime="20180127 22:33:51.492"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.490" endtime="20180127 22:33:51.492"></status>
+</kw>
+<kw name="${ELEMENT} = (2, 'Все желающие приглашаются на встречу с Папой.', 'Низкий', '2018-01-12 15:00:00', 2, 'Визит Папы Римского')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.493">(2, 'Все желающие приглашаются на встречу с Папой.', 'Низкий', '2018-01-12 15:00:00', 2, 'Визит Папы Римского')</msg>
+<status status="PASS" starttime="20180127 22:33:51.493" endtime="20180127 22:33:51.493"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[5]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.493" endtime="20180127 22:33:51.494"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.492" endtime="20180127 22:33:51.494"></status>
+</kw>
+<kw name="${ELEMENT} = (3, 'Пожалуйста воздержитесь от выхода на улицу.', 'Высокий', '2018-01-27 13:49:15.389882', 1, 'Штормовое предупреждение')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.495">(3, 'Пожалуйста воздержитесь от выхода на улицу.', 'Высокий', '2018-01-27 13:49:15.389882', 1, 'Штормовое предупреждение')</msg>
+<status status="PASS" starttime="20180127 22:33:51.494" endtime="20180127 22:33:51.495"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[5]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.495" endtime="20180127 22:33:51.495"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.494" endtime="20180127 22:33:51.495"></status>
+</kw>
+<kw name="${ELEMENT} = (12, 'asdf', 'Критический', '2018-01-13 07:47:43', 1, 'asdf')" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ELEMENT}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.496">(12, 'asdf', 'Критический', '2018-01-13 07:47:43', 1, 'asdf')</msg>
+<status status="PASS" starttime="20180127 22:33:51.496" endtime="20180127 22:33:51.496"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${ELEMENT[5]}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.496" endtime="20180127 22:33:51.497"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.495" endtime="20180127 22:33:51.497"></status>
+</kw>
+<status status="PASS" starttime="20180127 22:33:51.489" endtime="20180127 22:33:51.497"></status>
+</kw>
+<kw name="Sort List" library="Collections">
+<doc>Sorts the given list in place.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.497" endtime="20180127 22:33:51.497"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<msg level="INFO" timestamp="20180127 22:33:51.497">['asdf', 'Визит Папы Римского', 'Пожар!', 'Штормовое предупреждение']</msg>
+<status status="PASS" starttime="20180127 22:33:51.497" endtime="20180127 22:33:51.498"></status>
+</kw>
+<msg level="INFO" timestamp="20180127 22:33:51.498">${expectedlList} = ['asdf', 'Визит Папы Римского', 'Пожар!', 'Штормовое предупреждение']</msg>
+<status status="PASS" starttime="20180127 22:33:51.488" endtime="20180127 22:33:51.498"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${actualList}</arg>
+<arg>${expectedlList}</arg>
+</arguments>
+<status status="PASS" starttime="20180127 22:33:51.498" endtime="20180127 22:33:51.499"></status>
+</kw>
+<doc>Получение списка событий</doc>
+<tags>
+<tag>event</tag>
+</tags>
+<timeout value="1 minute"></timeout>
+<status status="PASS" critical="yes" starttime="20180127 22:33:51.460" endtime="20180127 22:33:51.499"></status>
+</test>
+<test id="s1-s2-t2" name="Test creating new user">
+<kw name="Create event">
+<assign>
+<var>${json}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=Application/json</arg>
+<arg>Authorization=${TOKEN}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.500">${headers} = {'Content-Type': 'Application/json', 'Authorization': 'Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.500" endtime="20180127 22:33:51.500"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>title=title</arg>
+<arg>text=text</arg>
+<arg>author=${USER_URL}</arg>
+<arg>hazard_lvl=Критический</arg>
+<arg>event_date=2018-01-13 10:47:43</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.501">${data} = {'title': 'title', 'text': 'text', 'author': 'http://127.0.0.1:8000/api/users/1/', 'hazard_lvl': 'Критический', 'event_date': '2018-01-13 10:47:43'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.501" endtime="20180127 22:33:51.501"></status>
+</kw>
+<kw name="Dumps" library="json">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>${req_json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.501">${req_json} = {"title": "title", "text": "text", "author": "http://127.0.0.1:8000/api/users/1/", "hazard_lvl": "\u041a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439", "event_date": "2018-01-13 10:47:4...</msg>
+<status status="PASS" starttime="20180127 22:33:51.501" endtime="20180127 22:33:51.501"></status>
+</kw>
+<kw name="Post" library="requests">
+<doc>Sends a POST request.</doc>
+<arguments>
+<arg>http://127.0.0.1:8000/api/event/</arg>
+<arg>data=${req_json}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.513">${response} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:51.502" endtime="20180127 22:33:51.514"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${response.json()}</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg level="FAIL" timestamp="20180127 22:33:51.514">Resolving variable '${response.json()}' failed: JSONDecodeError: Expecting value: line 1 column 1 (char 0)</msg>
+<status status="FAIL" starttime="20180127 22:33:51.514" endtime="20180127 22:33:51.514"></status>
+</kw>
+<status status="FAIL" starttime="20180127 22:33:51.500" endtime="20180127 22:33:51.514"></status>
+</kw>
+<doc>Создание события</doc>
+<tags>
+<tag>event</tag>
+</tags>
+<timeout value="1 minute"></timeout>
+<status status="FAIL" critical="yes" starttime="20180127 22:33:51.499" endtime="20180127 22:33:51.515">Resolving variable '${response.json()}' failed: JSONDecodeError: Expecting value: line 1 column 1 (char 0)</status>
+</test>
+<test id="s1-s2-t3" name="Test deleting user">
+<kw name="Create event">
+<assign>
+<var>${json}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=Application/json</arg>
+<arg>Authorization=${TOKEN}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.516">${headers} = {'Content-Type': 'Application/json', 'Authorization': 'Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.516" endtime="20180127 22:33:51.516"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>title=title</arg>
+<arg>text=text</arg>
+<arg>author=${USER_URL}</arg>
+<arg>hazard_lvl=Критический</arg>
+<arg>event_date=2018-01-13 10:47:43</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.517">${data} = {'title': 'title', 'text': 'text', 'author': 'http://127.0.0.1:8000/api/users/1/', 'hazard_lvl': 'Критический', 'event_date': '2018-01-13 10:47:43'}</msg>
+<status status="PASS" starttime="20180127 22:33:51.517" endtime="20180127 22:33:51.517"></status>
+</kw>
+<kw name="Dumps" library="json">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<assign>
+<var>${req_json}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.518">${req_json} = {"title": "title", "text": "text", "author": "http://127.0.0.1:8000/api/users/1/", "hazard_lvl": "\u041a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439", "event_date": "2018-01-13 10:47:4...</msg>
+<status status="PASS" starttime="20180127 22:33:51.517" endtime="20180127 22:33:51.518"></status>
+</kw>
+<kw name="Post" library="requests">
+<doc>Sends a POST request.</doc>
+<arguments>
+<arg>http://127.0.0.1:8000/api/event/</arg>
+<arg>data=${req_json}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20180127 22:33:51.530">${response} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20180127 22:33:51.518" endtime="20180127 22:33:51.530"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${response.json()}</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg level="FAIL" timestamp="20180127 22:33:51.531">Resolving variable '${response.json()}' failed: JSONDecodeError: Expecting value: line 1 column 1 (char 0)</msg>
+<status status="FAIL" starttime="20180127 22:33:51.531" endtime="20180127 22:33:51.531"></status>
+</kw>
+<status status="FAIL" starttime="20180127 22:33:51.516" endtime="20180127 22:33:51.531"></status>
+</kw>
+<doc>Удаление события</doc>
+<tags>
+<tag>event</tag>
+</tags>
+<timeout value="1 minute"></timeout>
+<status status="FAIL" critical="yes" starttime="20180127 22:33:51.515" endtime="20180127 22:33:51.531">Resolving variable '${response.json()}' failed: JSONDecodeError: Expecting value: line 1 column 1 (char 0)</status>
+</test>
+<kw name="Disconnect From Database" type="teardown" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<msg level="INFO" timestamp="20180127 22:33:51.532">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20180127 22:33:51.532" endtime="20180127 22:33:51.532"></status>
+</kw>
+<doc>Тестирование работы OAPI с объектами event</doc>
+<status status="FAIL" starttime="20180127 22:33:51.442" endtime="20180127 22:33:51.532"></status>
+</suite>
+<status status="FAIL" starttime="20180127 22:33:50.565" endtime="20180127 22:33:51.534"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="2">Critical Tests</stat>
-<stat pass="0" fail="2">All Tests</stat>
+<stat pass="4" fail="2">Critical Tests</stat>
+<stat pass="4" fail="2">All Tests</stat>
 </total>
 <tag>
-<stat pass="0" fail="1">db</stat>
+<stat pass="1" fail="2">event</stat>
+<stat pass="3" fail="0">user</stat>
 </tag>
 <suite>
-<stat pass="0" id="s1" name="01 Users" fail="2">01 Users</stat>
+<stat pass="4" id="s1" name="Tests" fail="2">Tests</stat>
+<stat pass="3" id="s1-s1" name="01 Users" fail="0">Tests.01 Users</stat>
+<stat pass="1" id="s1-s2" name="02 Events" fail="2">Tests.02 Events</stat>
 </suite>
 </statistics>
 <errors>

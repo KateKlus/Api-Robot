@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework import routers
 from webapi.views import *
 from django.contrib.auth import views
+from rest_framework.authtoken import views as auth_views
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -33,4 +34,5 @@ urlpatterns = [
     url(r'^accounts/login/$', views.login, name='login'),
     url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
     url(r'', include('webapi.urls')),
+    url(r'^api-token-auth/', auth_views.obtain_auth_token),
 ]

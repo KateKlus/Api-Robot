@@ -1,9 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Quicksand);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 body {
   margin: 0;
   padding: 0;
   background: #dadada;
-  font-family: Quicksand, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 #add_new_btn{
@@ -67,7 +68,7 @@ body {
 #menu:after {
   position: absolute;
   display: inline-block;
-  font-family: FontAwesome;
+  font-family: "Roboto", sans-serif;
   left: 0;
   top: 0;
   height: 60px;
@@ -328,4 +329,21 @@ body{
   text-decoration: none;
 }
 
+#icon{
+  color: white;
+  padding: 20px;
+  line-height: -moz-block-height;
+  font-size: larger;
+  display: inline-block;
+}
 
+#hello{
+  display: inline-block;
+  float: right;
+  color: white;
+  text-decoration: none;
+}
+
+#logout{
+  color: white;
+}

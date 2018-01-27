@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
-  width: 360px;
+  width: 650px;
   padding: 8% 0 0;
   margin: auto;
 }
@@ -10,12 +10,17 @@
   position: relative;
   z-index: 1;
   background: #FFFFFF;
-  max-width: 360px;
+  max-width: 650px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
+.form table{
+    width: 100%;
+}
+
 .form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
@@ -90,7 +95,7 @@
   color: #EF3B3A;
 }
 body {
-background: url("./images/back.jpg");
+  background: url("./images/back.jpg");
   background-attachment: fixed;
   -moz-background-size: 100%; /* Firefox 3.6+ */
   -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
@@ -99,4 +104,13 @@ background: url("./images/back.jpg");
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#login_btn{
+    background-color: cadetblue;
+    color: white;
+}
+
+#wellcome{
+    font-family: "Roboto", sans-serif;
 }
