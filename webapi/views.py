@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from django.shortcuts import render, redirect
 from webapi.serializers import UserSerializer, GroupSerializer, EventSerializer
 from .models import Event
-from .forms import EventForm
+from .forms import *
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
@@ -45,10 +45,10 @@ def event_new(request):
     if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
+            event = form.save(commit=False)
+            event.author = request.user
+            event.event_date = timezone.now()
+            event.save()
             return redirect('event_list')
     else:
         form = EventForm()
@@ -76,3 +76,36 @@ def event_remove(request, pk):
     event = get_object_or_404(Event, pk=pk)
     event.delete()
     return redirect('event_list')
+
+@login_required
+def divisionCall(request):
+    if request.method == "POST":
+        form = DivisionCallEventForm(request.POST)
+        if form.is_valid():
+            DivisionCallEvent = form.save(commit=False)
+            DivisionCallEvent.author = request.user
+            DivisionCallEvent.event_date = timezone.now()
+            divisionPk = DivisionCallEvent.division.id
+            Division.objects.filter(id=divisionPk).update(on_call=True)
+            DivisionCallEvent.save()
+            return redirect('event_list')
+    else:
+        form = DivisionCallEventForm()
+    return render(request, 'divisionCall.html', {'form': form})
+
+
+@login_required
+def divisionUnCall(request):
+    if request.method == "POST":
+        form = DivisionUnCallEventForm(request.POST)
+        if form.is_valid():
+            DivisionUnCallEvent = form.save(commit=False)
+            DivisionUnCallEvent.author = request.user
+            DivisionUnCallEvent.event_date = timezone.now()
+            divisionPk = DivisionUnCallEvent.division.id
+            Division.objects.filter(id=divisionPk).update(on_call=False)
+            DivisionUnCallEvent.save()
+            return redirect('event_list')
+    else:
+        form = DivisionUnCallEventForm()
+    return render(request, 'divisionUnCall.html', {'form': form})
