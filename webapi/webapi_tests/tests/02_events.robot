@@ -13,6 +13,7 @@ Suite Teardown    Disconnect From Database
 
 *** Variables ***
 ${USER_URL}  http://127.0.0.1:8000/api/users/1/
+${EVENT_URL}  http://127.0.0.1:8000/api/events/
 ${USER_NAME}  AutotestUserg
 ${TOKEN}  Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe
 *** Test Cases ***
@@ -23,34 +24,47 @@ Test geting list of events
     Should Be Equal  ${actual.status_code}    ${200}
     @{json}  Set Variable  ${actual.json()}
     ${actualList}  Create actual result list  @{json}
+    log  ${actualList}
     @{db}    Query  SELECT * FROM webapi_event;
     ${expectedlList}  Create expected result lis  @{db}
+    log  ${expectedlList}
     should be equal  ${actualList}  ${expectedlList}
 
-Test creating new user
+Test geting not exist event
+    [Tags]    event
+    [Documentation]  Получение не существующего события
+    ${actual}  Get  http://127.0.0.1:8000/api/events/-1/
+    Should Be Equal  ${actual.status_code}    ${404}
+    ${json}  Set Variable  ${actual.json()}
+    ${detail}  Get From Dictionary  ${json}  detail
+    Log  ${detail}
+    Should Be Equal  ${detail}  ${NOT_FOUND_MSG}
+
+Test creating new event
     [Tags]    event
     [Documentation]  Создание события
     ${json}  Create event
     ${event_title}  Get From Dictionary  ${json}  title
-    ${event_url}  Get From Dictionary  ${json}  url
-    ${event_title_db}  Get user by name from db  ${event_title}
+    Log  ${event_title}
+    ${event_id}  Get From Dictionary  ${json}  id
+    ${event_title_db}  Get event by id from db  ${event_id}
+    Log  ${event_title_db}
     SHOULD BE EQUAL  ${event_title}  ${event_title_db}
-    Delete event by url  ${event_url}
+    Delete event by url  ${EVENT_URL}${event_id}/
 
-Test deleting user
+Test deleting event
     [Tags]    event
     [Documentation]  Удаление события
     ${json}  Create event
-    ${event_url}  Get From Dictionary  ${json}  url
-    ${response}  Delete event by url  ${event_url}
-    ${response}  Should Be Equal  ${response.status_code}    ${204}
+    ${event_id}  Get From Dictionary  ${json}  id
+    ${response}  Delete event by url  ${event_url}${event_id}/
 
 *** Keywords ***
 Create event
     ${headers}  Create Dictionary  Content-Type=Application/json  Authorization=${TOKEN}
     ${data}  Create Dictionary  title=title  text=text  author=${USER_URL}  hazard_lvl=Критический  event_date=2018-01-13 10:47:43
     ${req_json}    Json.Dumps    ${data}
-    ${response}  Post  http://127.0.0.1:8000/api/event/  data=${req_json}  headers=${headers}
+    ${response}  Post  http://127.0.0.1:8000/api/events/  data=${req_json}  headers=${headers}
     ${json}  Set Variable  ${response.json()}
     [Return]  ${json}
 
@@ -58,6 +72,7 @@ Delete event by url
     [Arguments]  ${url}
     ${headers}  Create Dictionary  Content-Type=Application/json  Authorization=${TOKEN}
     ${response}  Delete  url=${url}  headers=${headers}
+    Should Be Equal  ${response.status_code}    ${204}
     [Return]  ${response}
 
 Create actual result list
@@ -83,7 +98,7 @@ Create expected result lis
 
 Get event by name from api
     [Arguments]  ${name}
-    ${actual}  Get  http://127.0.0.1:8000/api/event/
+    ${actual}  Get  http://127.0.0.1:8000/api/events/
     Should Be Equal  ${actual.status_code}    ${200}
     @{json}  Set Variable  ${actual.json()}
     ${result}  create list
@@ -93,14 +108,14 @@ Get event by name from api
     Log  ${result}
     [Return]  ${result}
 
-Get event by name from db
-    [Arguments]  ${name}
+Get event by id from db
+    [Arguments]  ${id}
     ${sql}  catenate
-    ...  SELECT username FROM auth_user
-    ...  Where username="${name}"
+    ...  SELECT title FROM webapi_event
+    ...  Where id="${id}"
     ${db}    Query  ${sql}
-    ${username_db}  Get From List  ${db}  0
-    ${username_db}    Convert To List    ${username_db}
-    ${username_db}  Get From List  ${username_db}  0
+    ${title_db}  Get From List  ${db}  0
+    ${title_db}    Convert To List    ${title_db}
+    ${title_db}  Get From List  ${title_db}  0
     Log  ${db}
-    [Return]  ${username_db}
+    [Return]  ${title_db}

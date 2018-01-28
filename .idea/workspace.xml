@@ -2,18 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b04b581-f356-4c20-845d-8b660ddbf2f5" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/webapi/webapi_tests/tests/02_events.robot" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/api/settings.py" afterPath="$PROJECT_DIR$/api/settings.py" />
-      <change beforePath="$PROJECT_DIR$/api/urls.py" afterPath="$PROJECT_DIR$/api/urls.py" />
-      <change beforePath="$PROJECT_DIR$/webapi/static/login.css" afterPath="$PROJECT_DIR$/webapi/static/login.css" />
-      <change beforePath="$PROJECT_DIR$/webapi/static/style.css" afterPath="$PROJECT_DIR$/webapi/static/style.css" />
-      <change beforePath="$PROJECT_DIR$/webapi/templates/base.html" afterPath="$PROJECT_DIR$/webapi/templates/base.html" />
-      <change beforePath="$PROJECT_DIR$/webapi/templates/registration/login.html" afterPath="$PROJECT_DIR$/webapi/templates/registration/login.html" />
+      <change beforePath="$PROJECT_DIR$/webapi/serializers.py" afterPath="$PROJECT_DIR$/webapi/serializers.py" />
       <change beforePath="$PROJECT_DIR$/webapi/webapi_tests/tests/01_users.robot" afterPath="$PROJECT_DIR$/webapi/webapi_tests/tests/01_users.robot" />
+      <change beforePath="$PROJECT_DIR$/webapi/webapi_tests/tests/02_events.robot" afterPath="$PROJECT_DIR$/webapi/webapi_tests/tests/02_events.robot" />
       <change beforePath="$PROJECT_DIR$/webapi/webapi_tests/tests/log.html" afterPath="$PROJECT_DIR$/webapi/webapi_tests/tests/log.html" />
       <change beforePath="$PROJECT_DIR$/webapi/webapi_tests/tests/output.xml" afterPath="$PROJECT_DIR$/webapi/webapi_tests/tests/output.xml" />
       <change beforePath="$PROJECT_DIR$/webapi/webapi_tests/tests/report.html" afterPath="$PROJECT_DIR$/webapi/webapi_tests/tests/report.html" />
+      <change beforePath="$PROJECT_DIR$/webapi/webapi_tests/tests/variables.robot" afterPath="$PROJECT_DIR$/webapi/webapi_tests/tests/variables.robot" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,18 +19,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/api_robot$Robot_tests.coverage" NAME="Robot_tests Coverage Results" MODIFIED="1517081630054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webapi/webapi_tests/tests" />
+    <SUITE FILE_PATH="coverage/api_robot$Robot_tests.coverage" NAME="Robot_tests Coverage Results" MODIFIED="1517131619481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webapi/webapi_tests/tests" />
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="01_users.robot" pinned="false" current-in-tab="false">
+      <file leaf-file-name="01_users.robot" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/01_users.robot">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+            <state relative-caret-position="-738">
+              <caret line="4" column="20" lean-forward="true" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -43,8 +39,8 @@
       <file leaf-file-name="02_events.robot" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/02_events.robot">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="18" column="11" lean-forward="true" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+            <state relative-caret-position="144">
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="40" selection-end-column="48" />
               <folding>
                 <element signature="e#0#378#0" expanded="true" />
               </folding>
@@ -52,11 +48,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="variables.robot" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/variables.robot">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapi/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="20" column="90" lean-forward="false" selection-start-line="20" selection-start-column="90" selection-end-line="20" selection-end-column="90" />
+            <state relative-caret-position="360">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapi/serializers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="19" column="76" lean-forward="false" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -77,16 +93,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="log.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/log.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -156,9 +162,7 @@
       <list>
         <option value="$PROJECT_DIR$/webapi/webapi_tests/__init__.robot" />
         <option value="$PROJECT_DIR$/webapi/webapi_tests/keywords/common.robot" />
-        <option value="$PROJECT_DIR$/webapi/webapi_tests/tests/variables.robot" />
         <option value="$PROJECT_DIR$/webapi/admin.py" />
-        <option value="$PROJECT_DIR$/webapi/serializers.py" />
         <option value="$PROJECT_DIR$/webapi/templates/style.css" />
         <option value="$PROJECT_DIR$/webapi/static/js.js" />
         <option value="$PROJECT_DIR$/webapi/templates/event_edit.html" />
@@ -174,9 +178,11 @@
         <option value="$PROJECT_DIR$/webapi/static/style.css" />
         <option value="$PROJECT_DIR$/api/urls.py" />
         <option value="$PROJECT_DIR$/api/settings.py" />
-        <option value="$PROJECT_DIR$/webapi/webapi_tests/tests/01_users.robot" />
-        <option value="$PROJECT_DIR$/webapi/webapi_tests/tests/02_events.robot" />
         <option value="$PROJECT_DIR$/webapi/models.py" />
+        <option value="$PROJECT_DIR$/webapi/serializers.py" />
+        <option value="$PROJECT_DIR$/webapi/webapi_tests/tests/variables.robot" />
+        <option value="$PROJECT_DIR$/webapi/webapi_tests/tests/02_events.robot" />
+        <option value="$PROJECT_DIR$/webapi/webapi_tests/tests/01_users.robot" />
       </list>
     </option>
   </component>
@@ -254,15 +260,16 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/webapi/webapi_tests/tests" />
+      <recent name="$PROJECT_DIR$/webapi/templates" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/webapi/templates/registration" />
       <recent name="$PROJECT_DIR$/webapi" />
       <recent name="$PROJECT_DIR$/webapi/templates" />
       <recent name="$PROJECT_DIR$/webapi/event_log" />
       <recent name="$PROJECT_DIR$/webapi/templates/static" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/webapi/templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -670,16 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapi/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="71" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapi/static/js.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -750,14 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/variables.robot">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/log.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -800,14 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/01_users.robot">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapi/templates/registration/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -826,20 +807,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webapi/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapi/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="76" lean-forward="false" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/variables.robot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/02_events.robot">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="18" column="11" lean-forward="true" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+        <state relative-caret-position="144">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="40" selection-end-column="48" />
           <folding>
             <element signature="e#0#378#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapi/models.py">
+    <entry file="file://$PROJECT_DIR$/webapi/webapi_tests/tests/01_users.robot">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="20" column="90" lean-forward="false" selection-start-line="20" selection-start-column="90" selection-end-line="20" selection-end-column="90" />
+        <state relative-caret-position="-738">
+          <caret line="4" column="20" lean-forward="true" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
           <folding />
         </state>
       </provider>

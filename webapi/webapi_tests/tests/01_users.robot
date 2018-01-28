@@ -44,6 +44,16 @@ Test deleting user
     ${response}  Delete user by url  ${user_url}
     ${response}  Should Be Equal  ${response.status_code}    ${204}
 
+Test geting not exist user
+    [Tags]    user
+    [Documentation]  Получение не существующего пользователя
+    ${actual}  Get  http://127.0.0.1:8000/api/users/-1/
+    Should Be Equal  ${actual.status_code}    ${404}
+    ${json}  Set Variable  ${actual.json()}
+    ${detail}  Get From Dictionary  ${json}  detail
+    Log  ${detail}
+    Should Be Equal  ${detail}  ${NOT_FOUND_MSG}
+
 *** Keywords ***
 Create user
     ${headers}  Create Dictionary  Content-Type=Application/json  Authorization=Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe
