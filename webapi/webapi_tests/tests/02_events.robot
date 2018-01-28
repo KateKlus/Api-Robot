@@ -15,7 +15,7 @@ Suite Teardown    Disconnect From Database
 ${USER_URL}  http://127.0.0.1:8000/api/users/1/
 ${EVENT_URL}  http://127.0.0.1:8000/api/events/
 ${USER_NAME}  AutotestUserg
-${TOKEN}  Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe
+
 *** Test Cases ***
 Test geting list of events
     [Tags]    event

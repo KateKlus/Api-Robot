@@ -56,7 +56,7 @@ Test geting not exist user
 
 *** Keywords ***
 Create user
-    ${headers}  Create Dictionary  Content-Type=Application/json  Authorization=Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe
+    ${headers}  Create Dictionary  Content-Type=Application/json  Authorization=${TOKEN}
     ${data}  Create Dictionary  username=${USER_NAME}  email=AutotestUser@mail.ru
     ${req_json}    Json.Dumps    ${data}
     ${response}  Post  http://127.0.0.1:8000/api/users/  data=${req_json}  headers=${headers}
@@ -65,7 +65,7 @@ Create user
 
 Delete user by url
     [Arguments]  ${url}
-    ${headers}  Create Dictionary  Content-Type=Application/json  Authorization=Token 90f65337e4fe9d821bd4a80b04cb6bf331bb60fe
+    ${headers}  Create Dictionary  Content-Type=Application/json  Authorization=${TOKEN}
     ${response}  Delete  url=${url}  headers=${headers}
     [Return]  ${response}
 
