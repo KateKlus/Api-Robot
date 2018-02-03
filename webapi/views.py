@@ -1,3 +1,5 @@
+# В этом файле описаны обработчики событий нашего приложения
+
 from django.contrib.auth.models import User, Group
 from django.utils import timezone
 from rest_framework import viewsets
@@ -8,7 +10,7 @@ from .forms import *
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-
+# Функция для создания стандартного API для модели User
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -17,6 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
+# Функция для создания стандартного API для модели Group (группы пользователей)
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -25,21 +28,25 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
+# Функция для создания стандартного API для модели Event (событие)
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
 
+# Функция возвращающая список событий на главной странице
 def event_list(request):
     events = Event.objects.order_by('event_date')
     return render(request, 'index.html', {'events': events})
 
 
+# Функция для вывода информации на странице события
 def event_detail(request, pk):
     event = get_object_or_404(Event, pk=pk)
     return render(request, 'event_detail.html', {'event': event})
 
 
+# Функция создания события
 @login_required
 def event_new(request):
     if request.method == "POST":
@@ -55,6 +62,7 @@ def event_new(request):
     return render(request, 'event_edit.html', {'form': form})
 
 
+# Функция редактирования события
 @login_required
 def event_edit(request, pk):
     event = get_object_or_404(Event, pk=pk)
@@ -71,12 +79,15 @@ def event_edit(request, pk):
     return render(request, 'event_edit.html', {'form': form})
 
 
+# Функция удаления события
 @login_required
 def event_remove(request, pk):
     event = get_object_or_404(Event, pk=pk)
     event.delete()
     return redirect('event_list')
 
+
+# Функция создания события вызова взвода
 @login_required
 def divisionCall(request):
     if request.method == "POST":
@@ -94,6 +105,7 @@ def divisionCall(request):
     return render(request, 'divisionCall.html', {'form': form})
 
 
+# Функция создания события возврата взвода
 @login_required
 def divisionUnCall(request):
     if request.method == "POST":

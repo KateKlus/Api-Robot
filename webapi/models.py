@@ -1,7 +1,11 @@
+# Этот файл описывает структуры данных, которые используются в приложении
+# В базе данных будут созданы таблицы полностью соответствующие этому описанию
+
+
 from django.db import models
 from django.utils import timezone
 
-
+# Модель события
 class Event(models.Model):
     CRITICAL = 'Критический'
     HEIGHT = 'Высокий'
@@ -27,6 +31,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+# Модель вызова взвода - наследник от модели событий
 class DivisionCallEvent(Event):
     division = models.ForeignKey('Division', on_delete=models.CASCADE, verbose_name=u'Взвод')
 
@@ -37,7 +42,7 @@ class DivisionCallEvent(Event):
     def __str__(self):
         return self.title
 
-
+# Модель роты
 class Rota(models.Model):
     name = models.CharField(max_length=200, verbose_name=u'Рота')
 
@@ -48,7 +53,7 @@ class Rota(models.Model):
     def __str__(self):
         return self.name
 
-
+# Модель взвода
 class Division(models.Model):
     name = models.CharField(max_length=200, verbose_name=u'Взвод')
     rota = models.ForeignKey('Rota', on_delete=models.CASCADE,)

@@ -1,3 +1,6 @@
+# Входная точка в приложение. Сервер получает какой-то url-адрес и согласно этому файлу выбирает для него обработчик
+# URL адреса описываются с помощью regex выражений. Подробнее: https://tutorial.djangogirls.org/ru/django_urls/
+
 from django.conf.urls import url
 from . import views
 

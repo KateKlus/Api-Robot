@@ -1,3 +1,6 @@
+# В это файле описываются сериалайзеры - структуры на основе которых информация об объекте переводится в формат json
+# По сути тут описываются поля объекта, который мы получим потом с помощью функций API
+
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from .models import Event

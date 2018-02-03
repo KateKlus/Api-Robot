@@ -1,3 +1,5 @@
+# Этот файл описывает формы для создания и редактирования событий
+
 from django import forms
 from .models import *
 
